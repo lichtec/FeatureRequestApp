@@ -99,7 +99,7 @@ class Feature(Base):
     client_id = db.Column(db.Integer, ForeignKey('client.id'))
     client = db.relationship(Client)
     priority = db.Column(db.Integer, nullable=False)
-    targetDate = db.Column(db.Datetime, nullable=False)
+    targetDate = db.Column(db.DateTime, nullable=False)
     productArea_id = db.Column(db.Integer, ForeignKey('productArea.id'), nullable=True)
     productArea = db.relationship(ProductArea)
     submitter_id = db.Column(db.Integer, ForeignKey('user.id'), nullable=True)
