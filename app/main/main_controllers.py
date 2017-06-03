@@ -7,9 +7,11 @@ from flask import (
   g,
   session as login_session,
   redirect,
-  url_for
+  url_for,
+  jsonify
   )
 
+import json
 
 from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
