@@ -11,11 +11,12 @@ app = Flask(__name__)
 
 # Configuration
 app.config.from_pyfile('config.py')
+# print app.config
 
 # Define the database object which is imported
 # by modules and controllers
 db = SQLAlchemy(app)
-engine = db.create_engine(app.SQLALCHEMY_DATABASE_URI)
+engine = db.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 db.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()

@@ -9,7 +9,7 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 # Define the database - we are working with
 # SQLite for this example
 #SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
-SQLALCHEMY_DATABASE_URI = "postgresql://catalog@localhost/catalog"
+SQLALCHEMY_DATABASE_URI = "postgresql://featurerequser:e038VyOXCE1d@localhost/featurerequest"
 DATABASE_CONNECT_OPTIONS = {}
 
 # Application threads. Sticking with standard 2
@@ -24,7 +24,3 @@ CSRF_SESSION_KEY = "secretTopherPotato1982"
 
 # Secret key for signing cookies
 SECRET_KEY = "secret"
-
-# imgur api
-IMGUR_SECRET_KEY = 'e09c306faee4cc6527eb9f03676a4860df612e44'
-IMGUR_CLIENT_ID = '95123b1565c2a83'

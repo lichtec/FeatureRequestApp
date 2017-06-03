@@ -18,7 +18,7 @@ from sqlalchemy.orm import sessionmaker
 from app import db
 
 # Import module models
-from app.records.record_model import Genre, Artist, Record
+# from app.records.record_model import Genre, Artist, Record
 
 # Define the blueprint: 'main', set its url prefix: app.url/
 mainBase = Blueprint('main', __name__, url_prefix='')
@@ -28,7 +28,7 @@ mainBase = Blueprint('main', __name__, url_prefix='')
 '''
 
 
-@recordBase.route('/', methods=['GET', 'POST'])
+@mainBase.route('/', methods=['GET', 'POST'])
 def loadMain():
     """
 
