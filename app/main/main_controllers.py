@@ -18,7 +18,7 @@ from sqlalchemy.orm import sessionmaker
 from app import db
 
 # Import module models
-# from app.records.record_model import Genre, Artist, Record
+from app.main.main_model import Client, ProductArea, User, Feature
 
 # Define the blueprint: 'main', set its url prefix: app.url/
 mainBase = Blueprint('main', __name__, url_prefix='')
