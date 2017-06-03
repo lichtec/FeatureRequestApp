@@ -11,7 +11,6 @@ app = Flask(__name__)
 
 # Configuration
 app.config.from_pyfile('config.py')
-# print app.config
 
 # Define the database object which is imported
 # by modules and controllers
@@ -38,4 +37,4 @@ app.register_blueprint(main)
 
 # Build the database:
 # This will create the database file using SQLAlchemy
-#db.create_all()
+db.create_all()
