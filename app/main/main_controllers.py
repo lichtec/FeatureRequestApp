@@ -30,13 +30,17 @@ mainBase = Blueprint('main', __name__, url_prefix='')
 
 @mainBase.route('/', methods=['GET', 'POST'])
 def loadMain():
+
     """
 
-        loadMain: Show all records
+        loadMain: Show all features
 
         Args:
 
         Returns:
             Returns rendered main.html
     """
-    return render_template("main/main.html")
+    features = db.session.query(Feature).all()
+    return jsonify(features=[r.serialize for r in features])
+
+    # return render_template("main/main.html")
