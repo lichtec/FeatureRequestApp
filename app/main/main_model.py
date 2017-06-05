@@ -35,7 +35,7 @@ class Client(Base):
         """Return object data in easily serializeable format"""
         return {
             'id': self.id,
-            'name': self.client_name
+            'client_name': self.client_name
         }
 
     # New instance instantiation procedure
@@ -57,7 +57,7 @@ class ProductArea(Base):
         """Return object data in easily serializeable format"""
         return {
             'id': self.id,
-            'name': self.productArea_name
+            'productArea_name': self.productArea_name
         }
 
     # New instance instantiation procedure
@@ -79,7 +79,7 @@ class User(Base):
         """Return object data in easily serializeable format"""
         return {
             'id': self.id,
-            'name': self.user_name
+            'user_name': self.user_name
         }
 
     # New instance instantiation procedure
@@ -115,7 +115,7 @@ class Feature(Base):
             'client_id': self.client_id,
             'priority': self.priority,
             'targetDate':   self.targetDate,
-            'productArea': self.productArea,
+            'productArea_id': self.productArea_id,
             'submitter_id': self.submitter_id
         }
     # New instance instantiation procedure
