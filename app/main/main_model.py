@@ -113,10 +113,13 @@ class Feature(Base):
             'title': self.title,
             'description': self.description,
             'client_id': self.client_id,
+            'client_name': self.client.serialize['client_name'],
             'priority': self.priority,
             'targetDate':   self.targetDate,
             'productArea_id': self.productArea_id,
-            'submitter_id': self.submitter_id
+            'productArea_name': self.productArea.serialize['productArea_name'],
+            'submitter_id': self.submitter_id,
+            'sbumitter_name': self.user.serialize['user_name'],
         }
     # New instance instantiation procedure
 
