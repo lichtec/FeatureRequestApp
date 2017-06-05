@@ -55,7 +55,7 @@ def loadFeatures():
             Returns json
     """
     features = db.session.query(Feature).all()
-    print features
+#     print features
     return jsonify(features=[r.serialize for r in features])
 
 @mainBase.route('/clients', methods=['GET'])
