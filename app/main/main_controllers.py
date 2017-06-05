@@ -28,12 +28,12 @@ mainBase = Blueprint('main', __name__, url_prefix='')
 '''
     Set the route and accepted methods Main
 '''
-@mainBase.route('/', methods=['GET', 'POST'])
+@mainBase.route('/', methods=['GET'])
 def loadMain():
 
     """
 
-        loadMain: Show all features
+        loadMain: Frontend app for data
 
         Args:
 
@@ -42,8 +42,8 @@ def loadMain():
     """
     return render_template("main/main.html")
 
-@mainBase.route('/features', methods=['GET', 'POST'])
-def loadMain():
+@mainBase.route('/features', methods=['GET'])
+def loadFeatures():
 
     """
 
@@ -52,9 +52,52 @@ def loadMain():
         Args:
 
         Returns:
-            Returns rendered main.html
+            Returns json
     """
     features = db.session.query(Feature).all()
     return jsonify(features=[r.serialize for r in features])
 
-    # return render_template("main/main.html")
+@mainBase.route('/clients', methods=['GET'])
+def loadClients():
+
+    """
+
+        loadMain: Show all clients
+
+        Args:
+
+        Returns:
+            Returns json
+    """
+    clients = db.session.query(Client).all()
+    return jsonify(clients=[r.serialize for r in clients])
+
+@mainBase.route('/users', methods=['GET'])
+def loadUsers():
+
+    """
+
+        loadMain: Show all users
+
+        Args:
+
+        Returns:
+            Returns json
+    """
+    users = db.session.query(User).all()
+    return jsonify(users=[r.serialize for r in users])
+  
+@mainBase.route('/product_areas', methods=['GET'])
+def loadProductAreas():
+
+    """
+
+        loadMain: Show all product_areas
+
+        Args:
+
+        Returns:
+            Returns json
+    """
+    product_areas = db.session.query(ProductArea).all()
+    return jsonify(product_areas=[r.serialize for r in product_areas])

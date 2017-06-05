@@ -28,7 +28,7 @@ class Client(Base):
     __tablename__ = 'client'
 
     id = db.Column(db.Integer, primary_key=True)
-    genre_name = db.Column(db.String(250), nullable=False)
+    client_name = db.Column(db.String(250), nullable=False)
 
     @property
     def serialize(self):
@@ -39,8 +39,8 @@ class Client(Base):
         }
 
     # New instance instantiation procedure
-        def __init__(self, genre_name, description, genre_image):
-            self.client_name = genre_name
+        def __init__(self, client_name):
+            self.client_name = client_name
 
     def __repr__(self):
         return '<client %r>' % (self.client_name)
@@ -50,7 +50,7 @@ class ProductArea(Base):
     __tablename__ = 'productArea'
 
     id = db.Column(db.Integer, primary_key=True)
-    genre_name = db.Column(db.String(250), nullable=False)
+    productArea_name = db.Column(db.String(250), nullable=False)
 
     @property
     def serialize(self):
@@ -61,8 +61,8 @@ class ProductArea(Base):
         }
 
     # New instance instantiation procedure
-        def __init__(self, genre_name, description, genre_image):
-            self.productArea_name = genre_name
+        def __init__(self, productArea_name):
+            self.productArea_name = productArea_name
 
     def __repr__(self):
         return '<productArea %r>' % (self.productArea_name)
@@ -72,7 +72,7 @@ class User(Base):
     __tablename__ = 'user'
 
     id = db.Column(db.Integer, primary_key=True)
-    genre_name = db.Column(db.String(250), nullable=False)
+    user_name = db.Column(db.String(250), nullable=False)
 
     @property
     def serialize(self):
@@ -83,8 +83,8 @@ class User(Base):
         }
 
     # New instance instantiation procedure
-        def __init__(self, genre_name, description, genre_image):
-            self.user_name = genre_name
+        def __init__(self, user_name):
+            self.user_name = user_name
 
     def __repr__(self):
         return '<user %r>' % (self.user_name)
@@ -121,14 +121,14 @@ class Feature(Base):
     # New instance instantiation procedure
 
         def __init__(self, title, description, client_id, priority, targetDate,
-                     productArea, submitter_id):
+                     productArea_id, submitter_id):
             self.id = id
             self.title = title
             self.description = description
             self.client_id = client_id
             self.priority = priority
             self.targetDate = targetDate
-            self.productArea = productArea
+            self.productArea_id = productArea_id
             self.submitter_id = submitter_id
 
         def __repr__(self):

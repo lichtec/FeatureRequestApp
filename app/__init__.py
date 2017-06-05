@@ -30,10 +30,11 @@ def not_found(error):
 
 # Import a module / component using its blueprint handler variable
 from app.main.main_controllers import mainBase as main
+from app.main_mod.main_mod_controllers import mainModBase as mainMod
 
 # Register blueprint(s)
 app.register_blueprint(main)
-
+app.register_blueprint(mainMod)
 
 # Build the database:
 # This will create the database file using SQLAlchemy
