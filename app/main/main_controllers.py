@@ -28,9 +28,21 @@ mainBase = Blueprint('main', __name__, url_prefix='')
 '''
     Set the route and accepted methods Main
 '''
-
-
 @mainBase.route('/', methods=['GET', 'POST'])
+def loadMain():
+
+    """
+
+        loadMain: Show all features
+
+        Args:
+
+        Returns:
+            Returns rendered main.html
+    """
+    return render_template("main/main.html")
+
+@mainBase.route('/features', methods=['GET', 'POST'])
 def loadMain():
 
     """
