@@ -8,6 +8,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
 
+import datetime
+
 from app import db
 
 
@@ -108,6 +110,10 @@ class Feature(Base):
     @property
     def serialize(self):
         """Return object data in easily serializeable format"""
+        if(self.user):
+          submitter_name = self.user.serialize['user_name']
+        else:
+          submitter_name = ''
         return {
             'id': self.id,
             'title': self.title,
@@ -115,11 +121,11 @@ class Feature(Base):
             'client_id': self.client_id,
             'client_name': self.client.serialize['client_name'],
             'priority': self.priority,
-            'targetDate':   self.targetDate,
+            'targetDate':   self.targetDate.strftime('%m-%d-%Y'),
             'productArea_id': self.productArea_id,
             'productArea_name': self.productArea.serialize['productArea_name'],
             'submitter_id': self.submitter_id,
-            'sbumitter_name': self.user.serialize['user_name'],
+            'submitter_name': submitter_name,
         }
     # New instance instantiation procedure
 
