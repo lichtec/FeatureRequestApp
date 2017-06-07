@@ -25,6 +25,10 @@ from app.main.main_model import Client, ProductArea, User, Feature
 # Define the blueprint: 'main', set its url prefix: app.url/
 mainBase = Blueprint('main', __name__, url_prefix='')
 
+noResultError = {}
+noResultError['Error'] = 'No Result Found'
+noResultErrorJson = json.dumps(noResultError)
+
 '''
     Set the route and accepted methods Main
 '''
@@ -102,3 +106,76 @@ def loadProductAreas():
     """
     product_areas = db.session.query(ProductArea).all()
     return jsonify(product_areas=[r.serialize for r in product_areas])
+
+
+@mainBase.route('/feature/<int:feature_id>', methods=['GET'])
+def loadFeature(feature_id):
+
+    """
+
+        loadMain: Show a feature
+
+        Args: feature_id
+
+        Returns:
+            Returns json
+    """
+    feature = db.session.query(Feature).filter_by(id=feature_id).first()
+    if(feature):
+      return jsonify(feature.serialize)
+    else:
+      return noResultErrorJson
+
+@mainBase.route('/client/<int:client_id>', methods=['GET'])
+def loadClient(client_id):
+
+    """
+
+        loadMain: Show a client
+
+        Args:client_id
+
+        Returns:
+            Returns json
+    """
+    client = db.session.query(Client).filter_by(id=client_id).first()
+    if(client):
+      return jsonify(client.serialize)
+    else:
+      return noResultErrorJson
+
+@mainBase.route('/user/<int:user_id>', methods=['GET'])
+def loadUser(user_id):
+
+    """
+
+        loadMain: Show a user
+
+        Args:user_id
+
+        Returns:
+            Returns json
+    """
+    user = db.session.query(User).filter_by(id=user_id).first()
+    if(user):
+      return jsonify(user.serialize)
+    else:
+      return noResultErrorJson
+  
+@mainBase.route('/product_area/<int:product_area_id>', methods=['GET'])
+def loadProductArea(product_area_id):
+
+    """
+
+        loadMain: Show a product_area
+
+        Args:product_area_id
+
+        Returns:
+            Returns json
+    """
+    product_area = db.session.query(ProductArea).filter_by(id=product_area_id).first()
+    if(product_area):
+      return jsonify(product_area.serialize)
+    else:
+      return noResultErrorJson

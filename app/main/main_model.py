@@ -114,16 +114,24 @@ class Feature(Base):
           submitter_name = self.user.serialize['user_name']
         else:
           submitter_name = ''
+        if(self.productArea):
+          productArea_name = self.productArea['productArea_name']
+        else:
+          productArea_name = ''
+        if(self.client):
+          client_name = self.client.serialize['client_name']
+        else:
+          client_name = ''
         return {
             'id': self.id,
             'title': self.title,
             'description': self.description,
             'client_id': self.client_id,
-            'client_name': self.client.serialize['client_name'],
+            'client_name': client_name,
             'priority': self.priority,
             'targetDate':   self.targetDate.strftime('%m-%d-%Y'),
             'productArea_id': self.productArea_id,
-            'productArea_name': self.productArea.serialize['productArea_name'],
+            'productArea_name': productArea_name,
             'submitter_id': self.submitter_id,
             'submitter_name': submitter_name,
         }
