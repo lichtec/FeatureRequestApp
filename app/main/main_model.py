@@ -115,7 +115,7 @@ class Feature(Base):
         else:
           submitter_name = ''
         if(self.productArea):
-          productArea_name = self.productArea['productArea_name']
+          productArea_name = self.productArea.serialize['productArea_name']
         else:
           productArea_name = ''
         if(self.client):

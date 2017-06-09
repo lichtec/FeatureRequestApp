@@ -3,7 +3,7 @@ from flask import Flask, render_template
 from sqlalchemy import create_engine, text
 
 # Import SQLAlchemy
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import sessionmaker
 
 # Define the WSGI application object

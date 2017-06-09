@@ -40,9 +40,9 @@ noResultErrorJson = json.dumps(noResultError)
 def addFeature():
   featureRequested = request.json
   client_id = db.session.query(Client.id).filter_by(
-    client_name=featureRequested['client_name']).one()
+    client_name=featureRequested['client_name']).first()
   productArea_id = db.session.query(ProductArea.id).filter_by(
-    productArea_name=featureRequested['productArea_name']).one()
+    productArea_name=featureRequested['productArea_name']).first()
   submitter_id = db.session.query(User.id).filter_by(
     user_name=featureRequested['submitter_name']).one()
   
