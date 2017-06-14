@@ -5,7 +5,6 @@
 	<meta charset="UTF-8">
 	<title>FeatureRequest</title>
 	<meta name="description" content="MainPageFeatureRequest">
-	<!-- 	<link rel="stylesheet" href="PATH"> -->
 
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
@@ -25,21 +24,17 @@
 		<div class="col-md-12">
 
 			<div class="col-md-12">
-				<div id='featuresList' class="table-responsive">
+				<ul class="nav nav-tabs" id="navBar" data-bind="foreach: navs">
+					<li data-bind="css: $parent.chosenNavId() == $data ? 'active': '', click: $root.goToNav">
+						<a href="#" data-bind="text: $data"></a>
+					</li>
+				</ul>
+				<br>
+				<div id='featuresList' class="table-responsive" data-bind="visible: chosenNavId() == 'Features'">
 					<table class="table table-striped">
 						<thead>
-							<tr>
-								<th>FeatureID</th>
-								<th>Title</th>
-								<th>Description</th>
-								<th>Client ID</th>
-								<th>Client Name</th>
-								<th>Priority</th>
-								<th>Target Date</th>
-								<th>ProductArea ID</th>
-								<th>ProductArea Name</th>
-								<th>Submitter ID</th>
-								<th>Submitter Name</th>
+							<tr data-bind="foreach: featureCols">
+								<th data-bind="text: $data"></th>
 							</tr>
 						</thead>
 						<tbody data-bind="foreach: featuresArray">
@@ -70,10 +65,65 @@
 						</tbody>
 					</table>
 				</div>
+<!--Clients 				 -->
+				<div id='clientsList' class="table-responsive" data-bind="visible: chosenNavId() == 'Clients'">
+					<table class="table table-striped">
+						<thead>
+							<tr data-bind="foreach: clientCols">
+								<th data-bind="text: $data"></th>
+							</tr>
+						</thead>
+						<tbody data-bind="foreach: clientsArray">
+							<tr>
+								<td data-bind='text: id'>
+								</td>
+								<td data-bind='text: client_name'>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+<!--Users 				 -->
+				<div id='usersList' class="table-responsive" data-bind="visible: chosenNavId() == 'Users'">
+					<table class="table table-striped">
+						<thead>
+							<tr data-bind="foreach: userCols">
+								<th data-bind="text: $data"></th>
+							</tr>
+						</thead>
+						<tbody data-bind="foreach: usersArray">
+							<tr>
+								<td data-bind='text: id'>
+								</td>
+								<td data-bind='text: user_name'>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+<!--Product Areas 				 -->
+				<div id='productAreasList' class="table-responsive" data-bind="visible: chosenNavId() == 'Product Areas'">
+					<table class="table table-striped">
+						<thead>
+							<tr data-bind="foreach: productAreaCols">
+								<th data-bind="text: $data"></th>
+							</tr>
+						</thead>
+						<tbody data-bind="foreach: productAreasArray">
+							<tr>
+								<td data-bind='text: id'>
+								</td>
+								<td data-bind='text: productArea_name'>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
 	<script src={{ url_for( 'static', filename='js/mainFeatures.js' ) }}></script>
+	<script src={{ url_for( 'static', filename='js/formControlls.js' ) }}></script>
 
 </body>
 
