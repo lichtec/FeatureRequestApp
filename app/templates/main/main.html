@@ -64,8 +64,60 @@
 							</tr>
 						</tbody>
 					</table>
+					<br>
+					<form data-bind="submit: addFeature">
+						<div class="form-group">
+							<h3>
+							Add Feature:
+						</h3>
+							<div class="form-group">
+								<input class="form-control" data-bind="value: newFeatureTitle" placeholder="Title" />
+							</div>
+							<div class="form-group">
+								<input class="form-control" data-bind="value: newFeatureDescription" placeholder="Descripition" />
+							</div>
+							<div class="form-group">
+								<select class="form-control" data-bind="options: clientsArray,
+															 optionsText: function(item) {
+                       						return item.client_name},
+															 optionsValue: function(item) {
+                       						return item.client_name},
+															 value: newFeatureClient_name,
+															 optionsCaption: 'Select Client'">
+						</select>
+							</div>
+							<div class="form-group">
+								<input class="form-control" data-bind="value: newFeaturePriority" placeholder="Priority" />
+							</div>
+							<div class="form-group">
+								<input class="form-control" data-bind="value: newFeatureTargetDate" placeholder="Target Date" />
+							</div>
+							<div class="form-group">
+								<select class="form-control" data-bind="options: productAreasArray,
+															 optionsText: function(item) {
+                       						return item.productArea_name},
+															 optionsValue: function(item) {
+                       						return item.productArea_name},													
+															 value: newFeatureProductArea_name,
+															 optionsCaption: 'Select Product Area'">
+						</select>
+							</div>
+							<div class="form-group">
+								<select class="form-control" data-bind="options: usersArray,
+															 optionsText: function(item) {
+                       						return item.user_name},
+															 optionsValue: function(item) {
+                       						return item.user_name},
+															 value: newFeatureSubmitterName,
+															 optionsCaption: 'Select Submitter'">
+						</select>
+							</div>
+							<button type="submit" class="btn btn-default">Add</button>
+						</div>
+					</form>
+
 				</div>
-<!--Clients 				 -->
+				<!--Clients 				 -->
 				<div id='clientsList' class="table-responsive" data-bind="visible: chosenNavId() == 'Clients'">
 					<table class="table table-striped">
 						<thead>
@@ -82,49 +134,60 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>
-<!--Users 				 -->
-				<div id='usersList' class="table-responsive" data-bind="visible: chosenNavId() == 'Users'">
-					<table class="table table-striped">
-						<thead>
-							<tr data-bind="foreach: userCols">
-								<th data-bind="text: $data"></th>
-							</tr>
-						</thead>
-						<tbody data-bind="foreach: usersArray">
-							<tr>
-								<td data-bind='text: id'>
-								</td>
-								<td data-bind='text: user_name'>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-<!--Product Areas 				 -->
-				<div id='productAreasList' class="table-responsive" data-bind="visible: chosenNavId() == 'Product Areas'">
-					<table class="table table-striped">
-						<thead>
-							<tr data-bind="foreach: productAreaCols">
-								<th data-bind="text: $data"></th>
-							</tr>
-						</thead>
-						<tbody data-bind="foreach: productAreasArray">
-							<tr>
-								<td data-bind='text: id'>
-								</td>
-								<td data-bind='text: productArea_name'>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+					</br>
+					<form data-bind="submit: addClient">
+						<div class="form-group">
+							<h3>
+							Add Client:
+						</h3>
+							<div class="form-group" id='clientForm'>
+								<input class="form-control" data-bind="value: newClientName" placeholder="Client Name" />
+							</div>
+
+							<button type="submit" class="btn btn-default">Add</button>
+
+						</div>
+					</form>
+					<!--Users 				 -->
+					<div id='usersList' class="table-responsive" data-bind="visible: chosenNavId() == 'Users'">
+						<table class="table table-striped">
+							<thead>
+								<tr data-bind="foreach: userCols">
+									<th data-bind="text: $data"></th>
+								</tr>
+							</thead>
+							<tbody data-bind="foreach: usersArray">
+								<tr>
+									<td data-bind='text: id'>
+									</td>
+									<td data-bind='text: user_name'>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!--Product Areas 				 -->
+					<div id='productAreasList' class="table-responsive" data-bind="visible: chosenNavId() == 'Product Areas'">
+						<table class="table table-striped">
+							<thead>
+								<tr data-bind="foreach: productAreaCols">
+									<th data-bind="text: $data"></th>
+								</tr>
+							</thead>
+							<tbody data-bind="foreach: productAreasArray">
+								<tr>
+									<td data-bind='text: id'>
+									</td>
+									<td data-bind='text: productArea_name'>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<script src={{ url_for( 'static', filename='js/mainFeatures.js' ) }}></script>
-	<script src={{ url_for( 'static', filename='js/formControlls.js' ) }}></script>
-
+		<script src={{ url_for( 'static', filename='js/mainFeatures.js' ) }}></script>
 </body>
 
 </html>
