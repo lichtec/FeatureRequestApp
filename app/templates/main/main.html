@@ -25,7 +25,7 @@
 
 			<div class="col-md-12">
 				<ul class="nav nav-tabs" id="navBar" data-bind="foreach: navs">
-					<li data-bind="css: $parent.chosenNavId() == $data ? 'active': '', click: $root.goToNav">
+					<li data-bind="css: $parent.chosenNavId() == $data || $parent.chosenNavId() == ('add'+$data)  ? 'active': '', click: $root.goToNav">
 						<a href="#" data-bind="text: $data"></a>
 					</li>
 				</ul>
@@ -39,9 +39,10 @@
 						</thead>
 						<tbody data-bind="foreach: featuresArray">
 							<tr>
+
 								<td data-bind='text: id'>
 								</td>
-								<td data-bind='text: title'>
+								<td data-bind='text: title, newFeatureTitle'>
 								</td>
 								<td data-bind='text: description'>
 								</td>
@@ -61,17 +62,22 @@
 								</td>
 								<td data-bind='text: submitter_name'>
 								</td>
+								<td><button type="submit" class="btn btn-default" data-bind="click: $parent.showEditFeature">Edit</button><button type="submit" class="btn btn-default">Delete</button></td>
 							</tr>
 						</tbody>
 					</table>
-					<br>
-					<form data-bind="submit: addFeature">
+					<button type="button" class="btn btn-default" data-bind="click: showAddFeature">Add Feature</button>
+				</div>
+				<div data-bind="visible: chosenNavId() == 'addFeature' || chosenNavId() == 'editFeature'">
+					<form data-bind="submit: featureMod">
 						<div class="form-group">
-							<h3>
-							Add Feature:
+							<h3> <span data-bind="text: activity"></span> Feature
 						</h3>
 							<div class="form-group">
-								<input class="form-control" data-bind="value: newFeatureTitle" placeholder="Title" />
+								<input class="form-control" data-bind="value: newFeatureId" placeholder='System Generated ID' disabled/>
+							</div>
+							<div class="form-group">
+								<input class="form-control" data-bind="value: newFeatureTitle" placeholder='Feature Title' />
 							</div>
 							<div class="form-group">
 								<input class="form-control" data-bind="value: newFeatureDescription" placeholder="Descripition" />
@@ -112,10 +118,9 @@
 															 optionsCaption: 'Select Submitter'">
 						</select>
 							</div>
-							<button type="submit" class="btn btn-default">Add</button>
+							<button type="submit" class="btn btn-default">Submit</button>
 						</div>
 					</form>
-
 				</div>
 				<!--Clients 				 -->
 				<div id='clientsList' class="table-responsive" data-bind="visible: chosenNavId() == 'Clients'">
@@ -131,59 +136,101 @@
 								</td>
 								<td data-bind='text: client_name'>
 								</td>
+								<td><button type="submit" class="btn btn-default" data-bind="click: $parent.showEditClient">Edit</button><button type="submit" class="btn btn-default">Delete</button></td>
 							</tr>
 						</tbody>
 					</table>
-					</br>
-					<form data-bind="submit: addClient">
+					<button type="button" class="btn btn-default" data-bind="click: showAddClient">Add Client</button>
+				</div>
+				<div data-bind="visible: chosenNavId() == 'addClient' || chosenNavId() == 'editClient'">
+					<form data-bind="submit: clientMod">
 						<div class="form-group">
-							<h3>
-							Add Client:
+							<h3><span data-bind="text: activity"></span> Client:
 						</h3>
+							<div class="form-group">
+								<input class="form-control" data-bind="value: newClientId" placeholder='System Generated ID' disabled/>
+							</div>
 							<div class="form-group" id='clientForm'>
 								<input class="form-control" data-bind="value: newClientName" placeholder="Client Name" />
 							</div>
+							<button type="submit" class="btn btn-default">Submit</button>
+						</div>
+					</form>
+				</div>
+				<!--Users 				 -->
+				<div id='usersList' class="table-responsive" data-bind="visible: chosenNavId() == 'Users'">
+					<table class="table table-striped">
+						<thead>
+							<tr data-bind="foreach: userCols">
+								<th data-bind="text: $data"></th>
+							</tr>
+						</thead>
+						<tbody data-bind="foreach: usersArray">
+							<tr>
+								<td data-bind='text: id'>
+								</td>
+								<td data-bind='text: user_name'>
+								</td>
+								<td><button type="submit" class="btn btn-default" data-bind="click: $parent.showEditUser">Edit</button><button type="submit" class="btn btn-default">Delete</button></td>
+							</tr>
+						</tbody>
+					</table>
+					<button type="button" class="btn btn-default" data-bind="click: showAddUser">Add User</button>
+				</div>
+				<div data-bind="visible: chosenNavId() == 'addUser' || chosenNavId() == 'editUser'">
+					<form data-bind="submit: modUser">
+						<div class="form-group">
+							<h3> <span data-bind="text: activity"></span> User:
+						</h3>
+							<div class="form-group">
+								<input class="form-control" data-bind="value: newUserId" placeholder='System Generated ID' disabled/>
+							</div>
+							<div class="form-group" id='userForm'>
+								<input class="form-control" data-bind="value: newUserName" placeholder="User Name" />
+							</div>
 
-							<button type="submit" class="btn btn-default">Add</button>
+							<button type="submit" class="btn btn-default">Submit</button>
 
 						</div>
 					</form>
-					<!--Users 				 -->
-					<div id='usersList' class="table-responsive" data-bind="visible: chosenNavId() == 'Users'">
-						<table class="table table-striped">
-							<thead>
-								<tr data-bind="foreach: userCols">
-									<th data-bind="text: $data"></th>
-								</tr>
-							</thead>
-							<tbody data-bind="foreach: usersArray">
-								<tr>
-									<td data-bind='text: id'>
-									</td>
-									<td data-bind='text: user_name'>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<!--Product Areas 				 -->
-					<div id='productAreasList' class="table-responsive" data-bind="visible: chosenNavId() == 'Product Areas'">
-						<table class="table table-striped">
-							<thead>
-								<tr data-bind="foreach: productAreaCols">
-									<th data-bind="text: $data"></th>
-								</tr>
-							</thead>
-							<tbody data-bind="foreach: productAreasArray">
-								<tr>
-									<td data-bind='text: id'>
-									</td>
-									<td data-bind='text: productArea_name'>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+				</div>
+				<!--Product Areas 				 -->
+				<div id='productAreasList' class="table-responsive" data-bind="visible: chosenNavId() == 'Product Areas'">
+					<table class="table table-striped">
+						<thead>
+							<tr data-bind="foreach: productAreaCols">
+								<th data-bind="text: $data"></th>
+							</tr>
+						</thead>
+						<tbody data-bind="foreach: productAreasArray">
+							<tr>
+								<td data-bind='text: id'>
+								</td>
+								<td data-bind='text: productArea_name'>
+								</td>
+								<td><button type="submit" class="btn btn-default" data-bind="click: $parent.showEditProductArea">Edit</button><button type="submit" class="btn btn-default">Delete</button></td>
+							</tr>
+						</tbody>
+					</table>
+					<button type="button" class="btn btn-default" data-bind="click: showAddProductArea">Add Product Area</button>
+				</div>
+				<div data-bind="visible: chosenNavId() == 'addProductArea' 
+|| chosenNavId() == 'editProductArea'">
+					<form data-bind="submit: modProductArea">
+						<div class="form-group">
+							<h3> <span data-bind="text: activity"></span> Product Area:
+						</h3>
+							<div class="form-group">
+								<input class="form-control" data-bind="value: newProductAreaId" placeholder='System Generated ID' disabled/>
+							</div>
+							<div class="form-group" id='productAreaForm'>
+								<input class="form-control" data-bind="value: newProductAreaName" placeholder="Product Area Name" />
+							</div>
+
+							<button type="submit" class="btn btn-default">Submit</button>
+
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
