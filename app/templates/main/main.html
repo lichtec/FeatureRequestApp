@@ -62,7 +62,7 @@
 								</td>
 								<td data-bind='text: submitter_name'>
 								</td>
-								<td><button type="submit" class="btn btn-default" data-bind="click: $parent.showEditFeature">Edit</button><button type="submit" class="btn btn-default">Delete</button></td>
+								<td><button type="submit" class="btn btn-default" data-bind="click: $parent.showEditFeature">Edit</button><button type="submit" class="btn btn-default" data-bind="click: $parent.showDeleteFeature">Delete</button></td>
 							</tr>
 						</tbody>
 					</table>
@@ -122,6 +122,60 @@
 						</div>
 					</form>
 				</div>
+				<div data-bind="visible: chosenNavId() == 'deleteFeature'">
+					<form data-bind="submit: featureMod">
+						<div class="form-group">
+							<h3> <span data-bind="text: activity"></span> Feature
+						</h3>
+							<div class="form-group">
+								<input class="form-control" data-bind="value: newFeatureId" placeholder='System Generated ID' disabled/>
+							</div>
+							<div class="form-group">
+								<input class="form-control" data-bind="value: newFeatureTitle" placeholder='Feature Title' disabled/>
+							</div>
+							<div class="form-group">
+								<input class="form-control" data-bind="value: newFeatureDescription" placeholder="Descripition" disabled/>
+							</div>
+							<div class="form-group">
+								<select class="form-control" data-bind="options: clientsArray,
+															 optionsText: function(item) {
+                       						return item.client_name},
+															 optionsValue: function(item) {
+                       						return item.client_name},
+															 value: newFeatureClient_name,
+															 optionsCaption: 'Select Client'" disabled>
+						</select>
+							</div>
+							<div class="form-group">
+								<input class="form-control" data-bind="value: newFeaturePriority" placeholder="Priority" disabled/>
+							</div>
+							<div class="form-group">
+								<input class="form-control" data-bind="value: newFeatureTargetDate" placeholder="Target Date" disabled/>
+							</div>
+							<div class="form-group">
+								<select class="form-control" data-bind="options: productAreasArray,
+															 optionsText: function(item) {
+                       						return item.productArea_name},
+															 optionsValue: function(item) {
+                       						return item.productArea_name},													
+															 value: newFeatureProductArea_name,
+															 optionsCaption: 'Select Product Area'" disabled>
+						</select>
+							</div>
+							<div class="form-group">
+								<select class="form-control" data-bind="options: usersArray,
+															 optionsText: function(item) {
+                       						return item.user_name},
+															 optionsValue: function(item) {
+                       						return item.user_name},
+															 value: newFeatureSubmitterName,
+															 optionsCaption: 'Select Submitter'" disabled>
+						</select>
+							</div>
+							<button type="submit" class="btn btn-default">Submit</button>
+						</div>
+					</form>
+				</div>
 				<!--Clients 				 -->
 				<div id='clientsList' class="table-responsive" data-bind="visible: chosenNavId() == 'Clients'">
 					<table class="table table-striped">
@@ -136,13 +190,13 @@
 								</td>
 								<td data-bind='text: client_name'>
 								</td>
-								<td><button type="submit" class="btn btn-default" data-bind="click: $parent.showEditClient">Edit</button><button type="submit" class="btn btn-default">Delete</button></td>
+								<td><button type="submit" class="btn btn-default" data-bind="click: $parent.showEditClient">Edit</button><button type="submit" class="btn btn-default" data-bind="click: $parent.showDeleteClient">Delete</button></td>
 							</tr>
 						</tbody>
 					</table>
 					<button type="button" class="btn btn-default" data-bind="click: showAddClient">Add Client</button>
 				</div>
-				<div data-bind="visible: chosenNavId() == 'addClient' || chosenNavId() == 'editClient'">
+				<div data-bind="visible: chosenNavId() == 'addClient' || chosenNavId() == 'editClient' || chosenNavId() == 'deleteClient'">
 					<form data-bind="submit: clientMod">
 						<div class="form-group">
 							<h3><span data-bind="text: activity"></span> Client:
@@ -150,8 +204,11 @@
 							<div class="form-group">
 								<input class="form-control" data-bind="value: newClientId" placeholder='System Generated ID' disabled/>
 							</div>
-							<div class="form-group" id='clientForm'>
+							<div class="form-group" id='clientForm' data-bind="visible: activity() != 'Delete'">
 								<input class="form-control" data-bind="value: newClientName" placeholder="Client Name" />
+							</div>
+							<div class="form-group" id='clientForm' data-bind="visible: activity() == 'Delete'">
+								<input class="form-control" data-bind="value: newClientName" placeholder="Client Name" disabled/>
 							</div>
 							<button type="submit" class="btn btn-default">Submit</button>
 						</div>
@@ -171,13 +228,13 @@
 								</td>
 								<td data-bind='text: user_name'>
 								</td>
-								<td><button type="submit" class="btn btn-default" data-bind="click: $parent.showEditUser">Edit</button><button type="submit" class="btn btn-default">Delete</button></td>
+								<td><button type="submit" class="btn btn-default" data-bind="click: $parent.showEditUser">Edit</button><button type="submit" class="btn btn-default" data-bind="click: $parent.showDeleteUser">Delete</button></td>
 							</tr>
 						</tbody>
 					</table>
 					<button type="button" class="btn btn-default" data-bind="click: showAddUser">Add User</button>
 				</div>
-				<div data-bind="visible: chosenNavId() == 'addUser' || chosenNavId() == 'editUser'">
+				<div data-bind="visible: chosenNavId() == 'addUser' || chosenNavId() == 'editUser' || chosenNavId() == 'deleteUser'">
 					<form data-bind="submit: modUser">
 						<div class="form-group">
 							<h3> <span data-bind="text: activity"></span> User:
@@ -185,10 +242,12 @@
 							<div class="form-group">
 								<input class="form-control" data-bind="value: newUserId" placeholder='System Generated ID' disabled/>
 							</div>
-							<div class="form-group" id='userForm'>
+							<div class="form-group" id='userForm' data-bind="visible: activity() != 'Delete'">
 								<input class="form-control" data-bind="value: newUserName" placeholder="User Name" />
 							</div>
-
+							<div class="form-group" id='userForm' data-bind="visible: activity() == 'Delete'">
+								<input class="form-control" data-bind="value: newUserName" placeholder="User Name" disabled/>
+							</div>
 							<button type="submit" class="btn btn-default">Submit</button>
 
 						</div>
@@ -208,14 +267,14 @@
 								</td>
 								<td data-bind='text: productArea_name'>
 								</td>
-								<td><button type="submit" class="btn btn-default" data-bind="click: $parent.showEditProductArea">Edit</button><button type="submit" class="btn btn-default">Delete</button></td>
+								<td><button type="submit" class="btn btn-default" data-bind="click: $parent.showEditProductArea">Edit</button><button type="submit" class="btn btn-default" data-bind="click: $parent.showDeleteProductArea">Delete</button></td>
 							</tr>
 						</tbody>
 					</table>
 					<button type="button" class="btn btn-default" data-bind="click: showAddProductArea">Add Product Area</button>
 				</div>
 				<div data-bind="visible: chosenNavId() == 'addProductArea' 
-|| chosenNavId() == 'editProductArea'">
+|| chosenNavId() == 'editProductArea' || chosenNavId() == 'deleteProductArea'">
 					<form data-bind="submit: modProductArea">
 						<div class="form-group">
 							<h3> <span data-bind="text: activity"></span> Product Area:
@@ -223,8 +282,11 @@
 							<div class="form-group">
 								<input class="form-control" data-bind="value: newProductAreaId" placeholder='System Generated ID' disabled/>
 							</div>
-							<div class="form-group" id='productAreaForm'>
+							<div class="form-group" id='productAreaForm' data-bind="visible: activity() != 'Delete'">
 								<input class="form-control" data-bind="value: newProductAreaName" placeholder="Product Area Name" />
+							</div>
+							<div class="form-group" id='productAreaForm' data-bind="visible: activity() == 'Delete'">
+								<input class="form-control" data-bind="value: newProductAreaName" placeholder="Product Area Name" disabled/>
 							</div>
 
 							<button type="submit" class="btn btn-default">Submit</button>

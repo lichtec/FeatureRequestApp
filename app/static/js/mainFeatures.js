@@ -102,6 +102,20 @@ var FeatureModel = function() {
     self.activity('Edit');
 
   };
+  
+  self.showDeleteFeature = function(feature) {
+    self.newFeatureId(feature.id());
+    self.newFeatureTitle(feature.title());
+    self.newFeatureDescription(feature.description());
+    self.newFeatureClient_name(feature.client_name());
+    self.newFeaturePriority(feature.priority());
+    self.newFeatureTargetDate(feature.targetDate());
+    self.newFeatureProductArea_name(feature.productArea_name());
+    self.newFeatureSubmitterName(feature.submitter_name());
+    self.chosenNavId('deleteFeature');
+    self.activity('Delete');
+
+  };
 
   self.showAddClient = function() {
     self.chosenNavId('addClient');
@@ -113,7 +127,13 @@ var FeatureModel = function() {
     self.newClientName(client.client_name());
     self.chosenNavId('editClient');
     self.activity('Edit');
+  };
 
+  self.showDeleteClient = function(client) {
+    self.newClientId(client.id());
+    self.newClientName(client.client_name());
+    self.chosenNavId('deleteClient');
+    self.activity('Delete');
   };
 
   self.showAddUser = function() {
@@ -126,16 +146,21 @@ var FeatureModel = function() {
     self.newUserName(user.user_name());
     self.chosenNavId('editUser');
     self.activity('Edit');
+  };
 
+  self.showDeleteUser = function(user) {
+    self.newUserId(user.id());
+    self.newUserName(user.user_name());
+    self.chosenNavId('deleteUser');
+    self.activity('Delete');
   };
 
   self.showAddProductArea = function() {
     self.chosenNavId('addProductArea');
     self.activity('Add');
   };
-  
+
   self.showEditProductArea = function(productArea) {
-    console.log(productArea);
     self.newProductAreaId(productArea.id());
     self.newProductAreaName(productArea.productArea_name());
     self.chosenNavId('editProductArea');
@@ -143,8 +168,17 @@ var FeatureModel = function() {
 
   };
 
+  self.showDeleteProductArea = function(productArea) {
+    self.newProductAreaId(productArea.id());
+    self.newProductAreaName(productArea.productArea_name());
+    self.chosenNavId('deleteProductArea');
+    self.activity('Delete');
+
+  };
+
   self.featureMod = function() {
-    if (this.newFeatureId() !== '') {
+    console.log(self.activity());
+    if (this.activity() === 'Edit') {
       modFeature = new Feature({
         id: this.newFeatureId(),
         title: this.newFeatureTitle(),
@@ -167,7 +201,33 @@ var FeatureModel = function() {
           self.featuresArray(mappedFeatures);
         }
       });
-    } else {
+    } else if(this.activity() === 'Delete') {
+      console.log('Delete');
+      modFeature = new Feature({
+        id: this.newFeatureId(),
+        title: this.newFeatureTitle(),
+        description: this.newFeatureDescription(),
+        client_name: this.newFeatureClient_name(),
+        priority: this.newFeaturePriority(),
+        targetDate: this.newFeatureTargetDate(),
+        productArea_name: this.newFeatureProductArea_name(),
+        submitter_name: this.newFeatureSubmitterName()
+      });
+      //     self.featuresArray.push(newFeature);
+      $.ajax("/delete_feature", {
+        data: ko.toJSON(modFeature),
+        type: "post",
+        contentType: "application/json",
+        success: function(data) {
+          var mappedFeatures = $.map(data.features, function(item) {
+            return new Feature(item)
+          });
+          self.featuresArray(mappedFeatures);
+        }
+      });
+    } 
+    
+    else {
       newFeature = new Feature({
         title: this.newFeatureTitle(),
         description: this.newFeatureDescription(),
@@ -196,14 +256,31 @@ var FeatureModel = function() {
   };
 
   self.clientMod = function() {
-    if (this.newClientId() !== '') {
+    if (this.activity() === 'Edit') {
       modClient = new Client({
         id: this.newClientId(),
         client_name: this.newClientName()
       });
-      console.log(ko.toJSON(modClient));
 
       $.ajax("/edit_client", {
+        data: ko.toJSON(modClient),
+        type: "post",
+        contentType: "application/json",
+        success: function(data) {
+          var mappedClients = $.map(data.clients, function(item) {
+            return new Client(item)
+          });
+          self.clientsArray(mappedClients);
+
+        }
+      });
+    } else if (this.activity() === 'Delete') {
+      modClient = new Client({
+        id: this.newClientId(),
+        client_name: this.newClientName()
+      });
+
+      $.ajax("/delete_client", {
         data: ko.toJSON(modClient),
         type: "post",
         contentType: "application/json",
@@ -238,13 +315,30 @@ var FeatureModel = function() {
   };
 
   self.modUser = function() {
-    if (this.newUserId() !== '') {
+    if (this.activity() === 'Edit') {
       modUser = new User({
         id: this.newUserId(),
         user_name: this.newUserName()
       });
       //     self.usersArray.push(newUser);
       $.ajax("/edit_user", {
+        data: ko.toJSON(modUser),
+        type: "post",
+        contentType: "application/json",
+        success: function(data) {
+          var mappedUsers = $.map(data.users, function(item) {
+            return new User(item)
+          });
+          self.usersArray(mappedUsers);
+        }
+      });
+    } else if (this.activity() === 'Delete') {
+      modUser = new User({
+        id: this.newUserId(),
+        user_name: this.newUserName()
+      });
+      //     self.usersArray.push(newUser);
+      $.ajax("/delete_user", {
         data: ko.toJSON(modUser),
         type: "post",
         contentType: "application/json",
@@ -278,7 +372,7 @@ var FeatureModel = function() {
   };
 
   self.modProductArea = function() {
-    if (self.newProductAreaId() !== '') {
+    if (self.activity() === 'Edit') {
       modProductArea = new ProductArea({
         id: this.newProductAreaId(),
         productArea_name: this.newProductAreaName()
@@ -295,25 +389,41 @@ var FeatureModel = function() {
           self.productAreasArray(mappedProductAreas);
         }
       });
-    }
-    else {
+    } else if (self.activity() === 'Delete') {
+      modProductArea = new ProductArea({
+        id: this.newProductAreaId(),
+        productArea_name: this.newProductAreaName()
+      });
+      //     self.productAreasArray.push(newProductArea);
+      $.ajax("/delete_product_area", {
+        data: ko.toJSON(modProductArea),
+        type: "post",
+        contentType: "application/json",
+        success: function(data) {
+          var mappedProductAreas = $.map(data.product_areas, function(item) {
+            return new ProductArea(item)
+          });
+          self.productAreasArray(mappedProductAreas);
+        }
+      });
+    } else {
       newProductArea = new ProductArea({
-      productArea_name: this.newProductAreaName()
-    });
-    //     self.productAreasArray.push(newProductArea);
-    $.ajax("/add_product_area", {
-      data: ko.toJSON(newProductArea),
-      type: "post",
-      contentType: "application/json",
-      success: function(data) {
-        var mappedProductAreas = $.map(data.product_areas, function(item) {
-          return new ProductArea(item)
-        });
-        self.productAreasArray(mappedProductAreas);
-      }
-    });
+        productArea_name: this.newProductAreaName()
+      });
+      //     self.productAreasArray.push(newProductArea);
+      $.ajax("/add_product_area", {
+        data: ko.toJSON(newProductArea),
+        type: "post",
+        contentType: "application/json",
+        success: function(data) {
+          var mappedProductAreas = $.map(data.product_areas, function(item) {
+            return new ProductArea(item)
+          });
+          self.productAreasArray(mappedProductAreas);
+        }
+      });
     }
-    
+
     self.clearObs();
     self.chosenNavId('Product Areas');
   };
