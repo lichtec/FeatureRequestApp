@@ -102,7 +102,7 @@ var FeatureModel = function() {
     self.activity('Edit');
 
   };
-  
+
   self.showDeleteFeature = function(feature) {
     self.newFeatureId(feature.id());
     self.newFeatureTitle(feature.title());
@@ -201,7 +201,7 @@ var FeatureModel = function() {
           self.featuresArray(mappedFeatures);
         }
       });
-    } else if(this.activity() === 'Delete') {
+    } else if (this.activity() === 'Delete') {
       console.log('Delete');
       modFeature = new Feature({
         id: this.newFeatureId(),
@@ -225,9 +225,7 @@ var FeatureModel = function() {
           self.featuresArray(mappedFeatures);
         }
       });
-    } 
-    
-    else {
+    } else {
       newFeature = new Feature({
         title: this.newFeatureTitle(),
         description: this.newFeatureDescription(),
