@@ -15,7 +15,7 @@ import json
 import datetime
 from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
-from helper_functions import reorder_priority
+from app.helper_functions.helper_functions import reorder_priority
 
 # Import the database object from the main app module
 from app import db
@@ -55,8 +55,8 @@ def addFeature():
                          featureRequested['targetDate'], '%m/%d/%Y'),
                        productArea_id=productArea_id[0],
                        submitter_id=submitter_id[0])
-  db.session.add(newFeature)
   reorder_priority(newFeature)
+  db.session.add(newFeature)
   db.session.commit()
   return redirect('/features')
 
@@ -110,7 +110,7 @@ def editFeature():
         editFeature.productArea_id=featureRequested['productArea_id']
       elif field == 'submitter_id':
         editFeature.submitter_id=featureRequested['submitter_id']
-    reorder_priority(edit_feature)
+    reorder_priority(editFeature)
     db.session.add(editFeature)
     db.session.commit()
     return redirect('/features')
@@ -171,8 +171,8 @@ def deleteFeature():
   deleteFeature = db.session.query(Feature).filter_by(
     id=featureRequested['id']).first()
   if(deleteFeature):
+    reorder_priority(deleteFeature, False)
     db.session.delete(deleteFeature)
-    reorder_priority(deleteFeature)
     db.session.commit()
     return redirect('/features')
   else:
