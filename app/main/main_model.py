@@ -129,7 +129,7 @@ class Feature(Base):
             'client_id': self.client_id,
             'client_name': client_name,
             'priority': self.priority,
-            'targetDate':   self.targetDate.strftime('%m/%d/%Y'),
+            'targetDate':   self.targetDate.strftime('%Y-%m-%d'),
             'productArea_id': self.productArea_id,
             'productArea_name': productArea_name,
             'submitter_id': self.submitter_id,

@@ -52,7 +52,7 @@ def addFeature():
                        client_id=client_id[0],
                        priority=featureRequested['priority'],
                        targetDate=datetime.datetime.strptime(
-                         featureRequested['targetDate'], '%m/%d/%Y'),
+                         featureRequested['targetDate'], '%Y-%m-%d'),
                        productArea_id=productArea_id[0],
                        submitter_id=submitter_id[0])
   reorder_priority(newFeature)
@@ -103,9 +103,9 @@ def editFeature():
         editFeature.client_id=featureRequested['client_id']
       elif field == 'priority':
         editFeature.priority=featureRequested['priority']
-      elif field == 'target_date':
+      elif field == 'targetDate':
         editFeature.targetDate=datetime.datetime.strptime(
-          featureRequested['targetDate'], '%m/%d/%Y')
+          featureRequested['targetDate'], '%Y-%m-%d')
       elif field == 'productArea_id':
         editFeature.productArea_id=featureRequested['productArea_id']
       elif field == 'submitter_id':
