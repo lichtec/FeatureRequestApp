@@ -77,13 +77,13 @@
 								<input class="form-control" data-bind="value: newFeatureId" placeholder='System Generated ID' disabled/>
 							</div>
 							<div class="form-group">
-								<input class="form-control" data-bind="value: newFeatureTitle" placeholder='Feature Title' />
+								<input class="form-control" required="required" data-bind="value: newFeatureTitle" placeholder='Feature Title' />
 							</div>
 							<div class="form-group">
-								<input class="form-control" data-bind="value: newFeatureDescription" placeholder="Descripition" />
+								<input class="form-control" required="required" data-bind="value: newFeatureDescription" placeholder="Descripition" />
 							</div>
 							<div class="form-group">
-								<select class="form-control" data-bind="options: clientsArray,
+								<select class="form-control" required="required" data-bind="options: clientsArray,
 															 optionsText: function(item) {
                        						return item.client_name},
 															 optionsValue: function(item) {
@@ -93,13 +93,13 @@
 						</select>
 							</div>
 							<div class="form-group">
-								<input class="form-control" data-bind="value: newFeaturePriority" placeholder="Priority" />
+								<input class="form-control" required="required" data-bind="value: newFeaturePriority" placeholder="Priority" />
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="date" data-bind="value: newFeatureTargetDate" placeholder="Target Date" />
+								<input class="form-control" required="required" type="date" data-bind="value: newFeatureTargetDate" placeholder="Target Date" />
 							</div>
 							<div class="form-group">
-								<select class="form-control" data-bind="options: productAreasArray,
+								<select class="form-control" required="required" data-bind="options: productAreasArray,
 															 optionsText: function(item) {
                        						return item.productArea_name},
 															 optionsValue: function(item) {
@@ -109,7 +109,7 @@
 						</select>
 							</div>
 							<div class="form-group">
-								<select class="form-control" data-bind="options: usersArray,
+								<select class="form-control" required="required" data-bind="options: usersArray,
 															 optionsText: function(item) {
                        						return item.user_name},
 															 optionsValue: function(item) {
@@ -131,13 +131,13 @@
 								<input class="form-control" data-bind="value: newFeatureId" placeholder='System Generated ID' disabled/>
 							</div>
 							<div class="form-group">
-								<input class="form-control" data-bind="value: newFeatureTitle" placeholder='Feature Title' disabled/>
+								<input class="form-control" required="required" data-bind="value: newFeatureTitle" placeholder='Feature Title' disabled/>
 							</div>
 							<div class="form-group">
-								<input class="form-control" data-bind="value: newFeatureDescription" placeholder="Descripition" disabled/>
+								<input class="form-control" required="required" data-bind="value: newFeatureDescription" placeholder="Descripition" disabled/>
 							</div>
 							<div class="form-group">
-								<select class="form-control" data-bind="options: clientsArray,
+								<select class="form-control" required="required" data-bind="options: clientsArray,
 															 optionsText: function(item) {
                        						return item.client_name},
 															 optionsValue: function(item) {
@@ -147,13 +147,13 @@
 						</select>
 							</div>
 							<div class="form-group">
-								<input class="form-control" data-bind="value: newFeaturePriority" placeholder="Priority" disabled/>
+								<input class="form-control" required="required" data-bind="value: newFeaturePriority" placeholder="Priority" disabled/>
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="date" data-bind="value: newFeatureTargetDate" placeholder="Target Date" disabled/>
+								<input class="form-control" required="required" type="date" data-bind="value: newFeatureTargetDate" placeholder="Target Date" disabled/>
 							</div>
 							<div class="form-group">
-								<select class="form-control" data-bind="options: productAreasArray,
+								<select class="form-control" required="required" data-bind="options: productAreasArray,
 															 optionsText: function(item) {
                        						return item.productArea_name},
 															 optionsValue: function(item) {
@@ -163,7 +163,7 @@
 						</select>
 							</div>
 							<div class="form-group">
-								<select class="form-control" data-bind="options: usersArray,
+								<select class="form-control" required="required" data-bind="options: usersArray,
 															 optionsText: function(item) {
                        						return item.user_name},
 															 optionsValue: function(item) {
@@ -205,10 +205,10 @@
 								<input class="form-control" data-bind="value: newClientId" placeholder='System Generated ID' disabled/>
 							</div>
 							<div class="form-group" id='clientForm' data-bind="visible: activity() != 'Delete'">
-								<input class="form-control" data-bind="value: newClientName" placeholder="Client Name" />
+								<input class="form-control" required="required" data-bind="value: newClientName" placeholder="Client Name" />
 							</div>
 							<div class="form-group" id='clientForm' data-bind="visible: activity() == 'Delete'">
-								<input class="form-control" data-bind="value: newClientName" placeholder="Client Name" disabled/>
+								<input class="form-control" required="required" data-bind="value: newClientName" placeholder="Client Name" disabled/>
 							</div>
 							<button type="submit" class="btn btn-default">Submit</button>
 						</div>
@@ -243,10 +243,10 @@
 								<input class="form-control" data-bind="value: newUserId" placeholder='System Generated ID' disabled/>
 							</div>
 							<div class="form-group" id='userForm' data-bind="visible: activity() != 'Delete'">
-								<input class="form-control" data-bind="value: newUserName" placeholder="User Name" />
+								<input class="form-control" required="required" data-bind="value: newUserName" placeholder="User Name" />
 							</div>
 							<div class="form-group" id='userForm' data-bind="visible: activity() == 'Delete'">
-								<input class="form-control" data-bind="value: newUserName" placeholder="User Name" disabled/>
+								<input class="form-control" required="required" data-bind="value: newUserName" placeholder="User Name" disabled/>
 							</div>
 							<button type="submit" class="btn btn-default">Submit</button>
 
@@ -280,13 +280,13 @@
 							<h3> <span data-bind="text: activity"></span> Product Area:
 						</h3>
 							<div class="form-group">
-								<input class="form-control" data-bind="value: newProductAreaId" placeholder='System Generated ID' disabled/>
+								<input class="form-control" required="required" data-bind="value: newProductAreaId" placeholder='System Generated ID' disabled/>
 							</div>
 							<div class="form-group" id='productAreaForm' data-bind="visible: activity() != 'Delete'">
-								<input class="form-control" data-bind="value: newProductAreaName" placeholder="Product Area Name" />
+								<input class="form-control" required="required" data-bind="value: newProductAreaName" placeholder="Product Area Name" />
 							</div>
 							<div class="form-group" id='productAreaForm' data-bind="visible: activity() == 'Delete'">
-								<input class="form-control" data-bind="value: newProductAreaName" placeholder="Product Area Name" disabled/>
+								<input class="form-control" required="required" data-bind="value: newProductAreaName" placeholder="Product Area Name" disabled/>
 							</div>
 
 							<button type="submit" class="btn btn-default">Submit</button>
